@@ -1,11 +1,29 @@
+"use client";
 // import CartSummary from "./cart-summary"
+
+import { useForm, SubmitHandler } from "react-hook-form";
+
+interface UserReq {
+  email: string;
+  username: string;
+  firstName: string;
+  lastName: string;
+}
+
 const AddUserForm = () => {
-  const 
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<UserReq>();
+
+  const onSubmit: SubmitHandler<UserReq> = (data: UserReq) => {
+    console.log(data);
+  };
   return (
     <>
       <div className="text-center">
-
-            {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
+        {/* <Image src="/vercel.svg" alt="Vercel Logo" width={72} height={16} /> */}
         <img
           className="d-block mx-auto mb-4"
           src="https://getbootstrap.com/docs/5.2/assets/brand/bootstrap-logo.svg"
@@ -17,9 +35,9 @@ const AddUserForm = () => {
       </div>
 
       <div className="row py-4">
-        { /* {<CartSummary />} */}
+        {/* {<CartSummary />} */}
         <div className="col-md-7 col-lg-8">
-          <form className="needs-validation">
+          <form className="needs-validation" onSubmit={handleSubmit(onSubmit)}>
             <div className="row g-3">
               <div className="col-sm-6">
                 <label htmlFor="firstName" className="form-label">
@@ -30,12 +48,17 @@ const AddUserForm = () => {
                   className="form-control"
                   id="firstName"
                   placeholder=""
-                  value=""
-                  required
+                  {...register("firstName", { required: true })}
                 />
-                <div className="invalid-feedback">
-                  Valid first name is required.
-                </div>
+
+                {errors.firstName && (
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    Valid first name is required.
+                  </div>
+                )}
               </div>
 
               <div className="col-sm-6">
@@ -47,12 +70,16 @@ const AddUserForm = () => {
                   className="form-control"
                   id="lastName"
                   placeholder=""
-                  value=""
-                  required
+                  {...register("lastName", { required: true })}
                 />
-                <div className="invalid-feedback">
-                  Valid last name is required.
-                </div>
+                {errors.lastName && (
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    Valid last name is required.
+                  </div>
+                )}
               </div>
 
               <div className="col-12">
@@ -66,11 +93,16 @@ const AddUserForm = () => {
                     className="form-control"
                     id="username"
                     placeholder="Username"
-                    required
+                    {...register("username", { required: true })}
                   />
-                  <div className="invalid-feedback">
-                    Your username is required.
-                  </div>
+                  {errors.username && (
+                    <div
+                      className="invalid-feedback"
+                      style={{ display: "inline" }}
+                    >
+                      Your Username is required.
+                    </div>
+                  )}
                 </div>
               </div>
 
@@ -83,10 +115,17 @@ const AddUserForm = () => {
                   className="form-control"
                   id="email"
                   placeholder="you@example.com"
+                  {...register("email", { required: true })}
                 />
-                <div className="invalid-feedback">
-                  Please enter a valid email address for shipping updates.
-                </div>
+
+                {errors.email && (
+                  <div
+                    className="invalid-feedback"
+                    style={{ display: "inline" }}
+                  >
+                    Please enter a valid email address for shipping updates.
+                  </div>
+                )}
               </div>
             </div>
 
