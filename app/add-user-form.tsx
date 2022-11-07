@@ -10,6 +10,19 @@ interface UserReq {
   lastName: string;
 }
 
+
+// const resolver: Resolver<UserReq> = async (values) => {
+//   return {
+//     values: values.firstName ? values : {},
+//     errors: !values.firstName ? {
+//       firstName: {
+//         type: 'required',
+//         message: 'first name is required'
+//       }
+//     } : {},
+//   }
+// }
+
 const AddUserForm = () => {
   const {
     register,
